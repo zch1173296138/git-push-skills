@@ -1,0 +1,41 @@
+{
+  "skill_name": "git-push",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把代码提交到github，commit message 写 fix: 修复登录页面样式错乱",
+      "expected_output": "执行 git add . → git commit -m 'fix: 修复登录页面样式错乱' → 检查 remote → git push，最后报告提交的 branch、commit hash 和 remote URL",
+      "files": [],
+      "assertions": [
+        "先执行了 git status 检查改动",
+        "执行了 git add 暂存改动",
+        "commit message 使用了用户指定的内容",
+        "成功执行了 git push",
+        "没有在 staging 前跳过 status 检查"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "提交一下代码，commit message 你帮我自动生成",
+      "expected_output": "执行 git add . → 读取 git diff --staged 分析改动 → 生成符合 Conventional Commits 规范的中文 message → 展示给用户确认 → commit → push，输出摘要",
+      "files": [],
+      "assertions": [
+        "执行了 git diff --staged 来分析改动",
+        "生成的 commit message 符合 Conventional Commits 格式（type(scope): description）",
+        "commit message 用中文描述了改动内容",
+        "成功执行了 git push"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "push 到 github",
+      "expected_output": "检查 git status，发现没有改动，报告'没有需要提交的改动'并退出，不执行任何 git 操作",
+      "files": [],
+      "assertions": [
+        "检测到没有改动（git status 为空）",
+        "没有执行 git commit",
+        "没有执行 git push"
+      ]
+    }
+  ]
+}
